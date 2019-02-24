@@ -12,7 +12,7 @@ def sql_pull(id_1, id_2):
 # Used to open links
 # Google chrome must already be open before running this.
 def open_sf(url1, url2, url3, url4):
-    url = "https://na68.salesforce.com/"
+    url = "salesforce.com/"
     webbrowser.open_new_tab(url+url1)
     webbrowser.open_new_tab(url+url2)
     webbrowser.open_new_tab(url + url3)
