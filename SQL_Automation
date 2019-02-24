@@ -1,0 +1,51 @@
+import pandas as pd
+import cx_Oracle
+import webbrowser
+from IPython.display import display
+
+def sql_pull(id_1, id_2):
+    connection = cx_Oracle.connect('username/password@database')
+    query ="""SQL Query""".format(Query Parameters)
+
+    return pd.read_sql(query,connection)
+
+# Used to open links
+# Google chrome must already be open before running this.
+def open_sf(url1, url2, url3, url4):
+    url = "https://na68.salesforce.com/"
+    webbrowser.open_new_tab(url+url1)
+    webbrowser.open_new_tab(url+url2)
+    webbrowser.open_new_tab(url + url3)
+    webbrowser.open_new_tab(url + url4)
+
+pd.set_option('expand_frame_repr', False)
+pd.set_option('display.max_columns', 500)
+
+data3 = pd.read_excel("Excel Files")
+
+# Select specific row
+while True:
+    row = int(input("Enter Row: "))
+    id_1 = int(data3.loc[row,'oppty_mdm_id1'])
+    id_2 = int(data3.loc[row,'oppty_mdm_id2'])
+
+    url1 = data3.loc[row, 'acct_pkey1']
+    url2 = data3.loc[row, 'acct_pkey2']
+    url3 = data3.loc[row, 'oppty_pkey1']
+    url4 = data3.loc[row, 'oppty_pkey2']
+
+    acc_data = sql_pull(id_1,  id_2)
+    open_sf(url1, url2,  url3, url4)
+    display(acc_data)
+
+## Itter over table
+# for row in range(len(data3)):
+#     id_1 = int(data3_less80.loc[row,'Account MDM External ID'])
+#     id_2 = int(data3_less80.loc[row,'MDM External ID'])
+#     url1 = data3_less80.loc[row, 'Id_x']
+#     url2 = data3_less80.loc[row, 'Id_y']
+#
+#     acc_data = sql_pull(id_1,  id_2)
+#     display(acc_data)
+#     open_sf(url1, url2)
+#     x = input("Hit Enter to Continue")
